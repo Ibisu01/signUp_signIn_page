@@ -2,31 +2,33 @@
 require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstName = htmlspecialchars(trim($_POST['firstName']));
-    $middleName = htmlspecialchars(trim($_POST['middleName']));
-    $lastName = htmlspecialchars(trim($_POST['lastName']));
-    $phoneNumber = htmlspecialchars(trim($_POST['phone']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $password = $_POST['password'];
-    $address = htmlspecialchars(trim($_POST['address']));
-    $nationality = htmlspecialchars(trim($_POST['nationality']));
-    $state = htmlspecialchars(trim($_POST['state']));
-    $bloodGroup = htmlspecialchars(trim($_POST['bloodGroup']));
-    $genotype = htmlspecialchars(trim($_POST['genotype']));
+    $firstname = htmlspecialchars(trim($_POST['firstname'] ?? ''));
+    $middlename = htmlspecialchars(trim($_POST['middlename'] ?? ''));
+    $lastname = htmlspecialchars(trim($_POST['lastname'] ?? ''));
+    $phonenumber = htmlspecialchars(trim($_POST['phonenumber'] ?? ''));
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+    $password = $_POST['password'] ?? '';
+    $address = htmlspecialchars(trim($_POST['address'] ?? ''));
+    $nationality = htmlspecialchars(trim($_POST['nationality'] ?? ''));
+    $state_of_origin = htmlspecialchars(trim($_POST['state_of_origin'] ?? ''));
+    $bloodgroup = htmlspecialchars(trim($_POST['bloodgroup'] ?? ''));
+    $genotype = htmlspecialchars(trim($_POST['genotype'] ?? ''));
+
+    if (empty($firstname) || empty($lastname) || empty($phonenumber) || empty($email) || 
+        empty($password) || empty($address) || empty($nationality) || 
+        empty($state_of_origin) || empty($bloodgroup) || empty($genotype)) {
+        echo "All fields except Middle Name are required.";
+        exit;
+    }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email format.";
         exit;
     }
 
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
-        echo "All fields are required.";
-        exit;
-    }
-
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id FROM students_records WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
@@ -39,8 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt->close();
 
-    $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
+    $stmt = $conn->prepare("INSERT INTO students_records (firstname, middlename, lastname, phonenumber, email, password, address, nationality, state_of_origin, bloodgroup, genotype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
+    // "sssssssssss" means 11 string parameters are being bound
+    $stmt->bind_param("sssssssssss", $firstname, $middlename, $lastname, $phonenumber, $email, $hashedPassword, $address, $nationality, $state_of_origin, $bloodgroup, $genotype);
 
     if ($stmt->execute()) {
         echo "Sign up successful. You can now <a href='signin.html'>sign in</a>.";
