@@ -5,9 +5,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = htmlspecialchars(trim($_POST['firstName']));
     $middleName = htmlspecialchars(trim($_POST['middleName']));
     $lastName = htmlspecialchars(trim($_POST['lastName']));
-    $password = $_POST['password'];
+    $phoneNumber = htmlspecialchars(trim($_POST['phone']));
     $email = htmlspecialchars(trim($_POST['email']));
-    
+    $password = $_POST['password'];
+    $address = htmlspecialchars(trim($_POST['address']));
+    $nationality = htmlspecialchars(trim($_POST['nationality']));
+    $state = htmlspecialchars(trim($_POST['state']));
+    $bloodGroup = htmlspecialchars(trim($_POST['bloodGroup']));
+    $genotype = htmlspecialchars(trim($_POST['genotype']));
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email format.";
