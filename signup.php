@@ -42,12 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 
     $stmt = $conn->prepare("INSERT INTO students_records (firstname, middlename, lastname, phonenumber, email, password, address, nationality, state_of_origin, bloodgroup, genotype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    
-    // "sssssssssss" means 11 string parameters are being bound
     $stmt->bind_param("sssssssssss", $firstname, $middlename, $lastname, $phonenumber, $email, $hashedPassword, $address, $nationality, $state_of_origin, $bloodgroup, $genotype);
 
     if ($stmt->execute()) {
-        echo "Sign up successful. You can now <a href='signin.html'>sign in</a>.";
+        header("Location: signin.html");
+        exit;
     } else {
         echo "Error: " . $stmt->error;
     }
