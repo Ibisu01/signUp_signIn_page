@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form id="signupForm" action="signup.php" method="POST">
+        <div id="page1" class="page active-page">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
+                <div id="firstNameError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" id="middleName" name="middleName" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
+                <div id="middleNameError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
+                <div id="lastNameError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">emaile:</label>
+                <input type="email" id="email" name="email" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
+                <div id="emailError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
+                <div id="phoneNumberError" class="error"></div>
+            </div>
+
+            <button type="button" class="single-btn" id="nextBtn">Next</button>
+            <p>Already have an account? <a href="signin.html">Sign In</a></p>
+        </div>
+
+        <div id="page2" class="page">
+            <h2>Security Details</h2>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <div id="emailError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <div id="passwordError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <div id="emailError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <div id="passwordError" class="error"></div>
+            </div>
+            
+            <div class="btn-container">
+                <button type="button" id="backBtn">Back</button>
+                <button type="submit">Complete Sign Up</button>
+            </div>
+        </div>
+    </form>
+
+<script src="signup.js"></script>
+
+</body>
+</html>
