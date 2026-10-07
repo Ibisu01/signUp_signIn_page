@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT id, first_name, password FROM users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id, firstname, password FROM students_records WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
