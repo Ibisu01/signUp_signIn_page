@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($firstname) || empty($lastname) || empty($phonenumber) || empty($email) || 
         empty($password) || empty($address) || empty($nationality) || 
         empty($state_of_origin) || empty($bloodgroup) || empty($genotype)) {
-        echo "All fields except Middle Name are required.";
+        echo "All fields are required.";
         exit;
     }
 
